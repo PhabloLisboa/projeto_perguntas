@@ -1,19 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import './questao.dart';
 main() {
   runApp(MainApp());
 }
 
-class MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> {
   var selelcted = 0;
-  final pergutas = ["Biscoito ou Bolacha?", "Que dia é hoje?"];
+  final _pergutas = ["Biscoito ou Bolacha?", "Que dia é hoje?"];
 
-  void responder() {
-    if (selelcted < pergutas.length - 1)
+  void _responder() {
+    if (selelcted < _pergutas.length - 1)
       setState(() => selelcted++);
-
-    print(selelcted);
   }
 
   Widget build(BuildContext context) {
@@ -24,18 +21,18 @@ class MainAppState extends State<MainApp> {
         ),
         body: Column(
           children: [
-            Text(pergutas[selelcted]),
+            Questao(_pergutas[selelcted]),
             RaisedButton(
               child: Text('Resposta 1'),
-              onPressed: responder,
+              onPressed: _responder,
             ),
             RaisedButton(
               child: Text('Resposta 2'),
-              onPressed: responder,
+              onPressed: _responder,
             ),
             RaisedButton(
               child: Text('Resposta 3'),
-              onPressed: responder,
+              onPressed: _responder,
             ),
           ],
         ),
@@ -45,5 +42,5 @@ class MainAppState extends State<MainApp> {
 }
 
 class MainApp extends StatefulWidget {
-  MainAppState createState() => MainAppState();
+  _MainAppState createState() => _MainAppState();
 }
