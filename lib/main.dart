@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
+import './BtnResposta.dart';
 import './questao.dart';
+
 main() {
   runApp(MainApp());
 }
 
 class _MainAppState extends State<MainApp> {
-  var selelcted = 0;
-  final _pergutas = ["Biscoito ou Bolacha?", "Que dia é hoje?"];
-
-  void _responder() {
-    if (selelcted < _pergutas.length - 1)
-      setState(() => selelcted++);
-  }
-
+  var selected = 0;
   Widget build(BuildContext context) {
+    final List<Map<String, Object>> _perguntas = [
+      {
+        'text': "Sua cor favorita",
+        'respostas': ['Azul', 'Amarelo', 'Cinza', 'Outra']
+      },
+      {
+        'text': "Gêneto literário favorito",
+        'respostas': ['Comédia', 'Romance', 'Terror', 'Outro']
+      },
+    ];
+
+    void _responder() {
+      if (selected < _perguntas.length - 1) setState(() => selected++);
+      print(selected);
+    }
+
+    List<String> respostas = _perguntas[selected]['respostas'];
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -21,19 +34,10 @@ class _MainAppState extends State<MainApp> {
         ),
         body: Column(
           children: [
-            Questao(_pergutas[selelcted]),
-            RaisedButton(
-              child: Text('Resposta 1'),
-              onPressed: _responder,
-            ),
-            RaisedButton(
-              child: Text('Resposta 2'),
-              onPressed: _responder,
-            ),
-            RaisedButton(
-              child: Text('Resposta 3'),
-              onPressed: _responder,
-            ),
+            Questao(_perguntas[selected]['text']),
+            ...respostas
+                .map((e) => BtnResposta(text: e, onPressed: _responder))
+                .toList()
           ],
         ),
       ),
